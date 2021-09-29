@@ -1,11 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using System;
+using System.IO;
+using UnityEngine;
 
-public class MazeGenerator{
+public class MazeGenerator {
 
     private int width;
     private int height;
+
+    private int[,] Dx = new int[2, 4] { { 1,2,4,8}, { 0,0,1,-1} };
+    private int[,] Dy = new int[2, 4] { { 1,2,4,8}, { -1,1,0,0} };
+    private int[,] Op = new int[2, 4] { { 1,2,4,8}, { 2,1,8,4} };
 
     private enum Direction
     {
@@ -14,26 +20,40 @@ public class MazeGenerator{
         E = 4,
         W = 8
     }
-    private enum Dy
+
+    private int dirConvert(int x, int tab)
     {
-        N = -1,
-        S = 1,
-        E = 0,
-        W = 0
-    }
-    private enum Dx
-    {
-        N = 0,
-        S = 0,
-        E = 1,
-        W = -1
-    }
-    private enum Op
-    {
-        N = Direction.S,
-        S = Direction.N,
-        E = Direction.W,
-        W = Direction.E
+        int nb = 0;
+        if (tab == 0)
+        {
+            for (int i=0;i<4;i++)
+            {
+                if (Dx[0,i] == x)
+                {
+                    nb = Dx[1, i];
+                }
+            }
+        } else if (tab == 1)
+        {
+            for (int i = 0; i < 4; i++)
+            {
+                if (Dy[0, i] == x)
+                {
+                    nb = Dy[1, i];
+                }
+            }
+        }
+        else if (tab == 2)
+        {
+            for (int i = 0; i < 4; i++)
+            {
+                if (Op[0, i] == x)
+                {
+                    nb = Op[1, i];
+                }
+            }
+        }
+        return nb;
     }
 
     //constructor, take width and height of the maze
@@ -41,33 +61,34 @@ public class MazeGenerator{
     {
         this.width = w;
         this.height = h;
-
     }
 
-    public int[,] generate(int x, int y, int[,] maze)
+    public int[,] generate(int x, int y, int[,] maze, System.Random rnd)
     {
         //Randomisation
         Type type = typeof(Direction);
         Array dir = type.GetEnumValues();
-        System.Random rnd = new System.Random();
-        int n = dir.Length;
-        while(n > 1){
-            int k = rnd.Next(n--);
-            int tmp = (int)dir.GetValue(n);
-            dir.SetValue(dir.GetValue(k), n);
+        for (int i = 0; i < dir.Length; i++)
+        {
+            int k = rnd.Next(4);
+            int tmp = (int)dir.GetValue(i);
+            dir.SetValue(dir.GetValue(k), i);
             dir.SetValue(tmp, k);
         }
-
+        //
         for(int i = 0; i < dir.Length; i++)
         {
-            int xi = x + (int)(Dx)(int)dir.GetValue(i);
-            int yi = y + (int)(Dy)(int)dir.GetValue(i);
+            int value = (int)dir.GetValue(i);
+            int xi = x + dirConvert(value,0);
+            int yi = y + dirConvert(value,1);
 
-            if (0 <= x && x < this.width && 0 <= y && y <= this.height && maze[x,y] == 0)
+            if (0 <= xi && xi < width && 0 <= yi && yi < height)
             {
-                maze[x,y] += (int)(Direction)(int)dir.GetValue(i);
-                maze[xi,yi] += (int)(Op)(int)dir.GetValue(i);
-                maze = generate(xi, yi, maze);
+                if (maze[yi, xi] == 0) {
+                    maze[y, x] += value;
+                    maze[yi, xi] += dirConvert(value, 2);
+                    maze = generate(xi, yi, maze,rnd);
+                }
             }
 
         }

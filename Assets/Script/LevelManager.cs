@@ -19,7 +19,8 @@ public class LevelManager : MonoBehaviour
             }
         }
         MazeGenerator m = new MazeGenerator(10,10);
-        maze = m.generate(0, 0, maze);
+        System.Random rnd = new System.Random();
+        maze = m.generate(0, 0, maze,rnd);
 
         string texte = null;
         for(int i = 0; i < 10; i++)
