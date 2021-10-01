@@ -36,22 +36,22 @@ public class LevelManager : MonoBehaviour
     {
                 if ((x & 1) == 1)
                 {
-                    GameObject g = Instantiate(wall, new Vector3((float)(y - 0.5), 0, z), Quaternion.Euler(0f, 90f, 0f));
+                    GameObject g = Instantiate(wall, new Vector3((float)(y - 0.5), 0.5f, z), Quaternion.Euler(0f, 90f, 0f));
                     g.name = y + "," + z+" cote : N";
                 }
                 if ((x & 2) == 2)
                 {
-                    GameObject g = Instantiate(wall, new Vector3((float)(y + 0.5), 0, z), Quaternion.Euler(0f, 90f, 0f));
+                    GameObject g = Instantiate(wall, new Vector3((float)(y + 0.5), 0.5f, z), Quaternion.Euler(0f, 90f, 0f));
                     g.name = y + "," + z + "cote : S";
                 }
                 if ((x & 4) == 4)
                 {
-                    GameObject g = Instantiate(wall, new Vector3( y, 0, (float)(z+0.5)), Quaternion.identity);
+                    GameObject g = Instantiate(wall, new Vector3( y, 0.5f, (float)(z+0.5)), Quaternion.identity);
                     g.name = y + "," + z + "cote : E";
                 }
                 if ((x & 8) == 8)
                 {
-                    GameObject g = Instantiate(wall, new Vector3(y, 0, (float)(z - 0.5)), Quaternion.identity);
+                    GameObject g = Instantiate(wall, new Vector3(y, 0.5f, (float)(z - 0.5)), Quaternion.identity);
                     g.name = y + "," + z + "cote : W";
                 }
                 
@@ -82,7 +82,7 @@ public class LevelManager : MonoBehaviour
     {
         createMaze();
 
-        MazeGenerator m = new MazeGenerator(10,10);
+        MazeGenerator m = new MazeGenerator(width,height);
         System.Random rnd = new System.Random();
         maze = m.generate(0, 0, maze,rnd);
         genMaze(maze);
