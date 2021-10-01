@@ -20,11 +20,16 @@ public class MazeGenerator {
         E = 4,
         W = 8
     }
-
-    private int dirConvert(int x, int tab)
+    /// <summary>
+    /// Brief to convert a direction regarding the mode selectionned
+    /// </summary>
+    /// <param name="x">The direction</param>
+    /// <param name="mode">The mode</param>
+    /// <returns>The converted direction</returns>
+    private int dirConvert(int x, int mode)
     {
         int nb = 0;
-        if (tab == 0)
+        if (mode == 0)
         {
             for (int i=0;i<4;i++)
             {
@@ -33,7 +38,7 @@ public class MazeGenerator {
                     nb = Dx[1, i];
                 }
             }
-        } else if (tab == 1)
+        } else if (mode == 1)
         {
             for (int i = 0; i < 4; i++)
             {
@@ -43,7 +48,7 @@ public class MazeGenerator {
                 }
             }
         }
-        else if (tab == 2)
+        else if (mode == 2)
         {
             for (int i = 0; i < 4; i++)
             {
@@ -56,13 +61,25 @@ public class MazeGenerator {
         return nb;
     }
 
-    //constructor, take width and height of the maze
+    /// <summary>
+    /// Constructor
+    /// </summary>
+    /// <param name="w">Maze width, default 10</param>
+    /// <param name="h">Maze height, default 10</param>
     public MazeGenerator(int w = 10, int h = 10)
     {
         this.width = w;
         this.height = h;
     }
 
+    /// <summary>
+    /// Brief to create the maze array
+    /// </summary>
+    /// <param name="x">Starting pos</param>
+    /// <param name="y">Starting pos</param>
+    /// <param name="maze">Empty maze array</param>
+    /// <param name="rnd">Random seed</param>
+    /// <returns>Return the filled maze array</returns>
     public int[,] generate(int x, int y, int[,] maze, System.Random rnd)
     {
         //Randomisation

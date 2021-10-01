@@ -328,6 +328,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 979cd8b4554782c4eadf894e32ea943d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ground: {fileID: 6010247141583112609, guid: 72dd1228fd107ce45a588125314ecf1e, type: 3}
+  wall: {fileID: 1092834158804955193, guid: ec4fcc837d1b96d4fa8536331ba51dcb, type: 3}
 --- !u!4 &1400037807
 Transform:
   m_ObjectHideFlags: 0
