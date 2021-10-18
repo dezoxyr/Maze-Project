@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine.SceneManagement;
+using System.Linq;
 
 public class ScenesManager : EditorWindow
 {
@@ -82,6 +83,32 @@ public class ScenesManager : EditorWindow
             index = EditorSceneManager.GetSceneAt(i).buildIndex;
             listScene[index].isActive = true;
             listScene[index].isInNextFrame = false;
+        }
+    }
+
+    [MenuItem("Assets/Scene/Add to build", false)]
+    public static void AddToBuild()
+    {
+        var sceneSelect = Selection.activeObject as SceneAsset;
+        if(EditorBuildSettings.scenes.ToList().Any(s => s.path == AssetDatabase.GetAssetPath(sceneSelect))){
+            GetWindow<ScenesManager>().ShowNotification(new GUIContent("STOP ERROR"));
+        } else
+        {
+            List<EditorBuildSettingsScene> buildScene = EditorBuildSettings.scenes.ToList();
+            buildScene.Add(new EditorBuildSettingsScene(AssetDatabase.GetAssetPath(sceneSelect), true));
+            EditorBuildSettings.scenes = buildScene.ToArray();
+        }
+    }
+
+    [MenuItem("Assets/Scene/Add to build", true)]
+    static bool AddToBuildValidate()
+    {
+        if (Selection.activeObject is SceneAsset)
+        {
+            return true;
+        } else
+        {
+            return false;
         }
     }
 
