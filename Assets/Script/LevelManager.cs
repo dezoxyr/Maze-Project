@@ -2,11 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class LevelManager : MonoBehaviour
 {
     public GameObject ground;
     public GameObject wall;
+    public GameObject parent;
 
     private const int width = 10;
     private const int height = 10;
@@ -38,21 +40,25 @@ public class LevelManager : MonoBehaviour
                 {
                     GameObject g = Instantiate(wall, new Vector3((float)(y - 0.5), 0.5f, z), Quaternion.Euler(0f, 90f, 0f));
                     g.name = y + "," + z+" cote : N";
+                    g.transform.parent = parent.transform;
                 }
                 if ((x & 2) == 2)
                 {
                     GameObject g = Instantiate(wall, new Vector3((float)(y + 0.5), 0.5f, z), Quaternion.Euler(0f, 90f, 0f));
                     g.name = y + "," + z + "cote : S";
+                    g.transform.parent = parent.transform;
                 }
                 if ((x & 4) == 4)
                 {
                     GameObject g = Instantiate(wall, new Vector3( y, 0.5f, (float)(z+0.5)), Quaternion.identity);
                     g.name = y + "," + z + "cote : E";
+                    g.transform.parent = parent.transform;
                 }
                 if ((x & 8) == 8)
                 {
                     GameObject g = Instantiate(wall, new Vector3(y, 0.5f, (float)(z - 0.5)), Quaternion.identity);
                     g.name = y + "," + z + "cote : W";
+                    g.transform.parent = parent.transform;
                 }
                 
 
@@ -71,7 +77,11 @@ public class LevelManager : MonoBehaviour
             {
                 GameObject g = Instantiate(ground, new Vector3(i, 0, j), Quaternion.identity);
                 g.name = i + "," + j;
+                g.transform.parent = parent.transform;
                 genWall(~maze[i,j],i,j);
+
+                NavMeshSurface s = parent.AddComponent(typeof(NavMeshSurface)) as NavMeshSurface;
+                s.BuildNavMesh();
             }
         }
         return true;
