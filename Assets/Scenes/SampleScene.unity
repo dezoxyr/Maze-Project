@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.234635, g: 0.046854064, b: 0.0123571195, a: 1}
+  m_IndirectSpecularColor: {r: 0.23462737, g: 0.04684957, b: 0.012355875, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -690,6 +690,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 1493872842}
+  m_Speed: 0
+  m_RotationSpeed: 0
 --- !u!1 &1805346139
 GameObject:
   m_ObjectHideFlags: 0
@@ -715,7 +717,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1805346139}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 3, z: 6}
+  m_LocalPosition: {x: 0, y: 3.4, z: 6.7}
   m_LocalScale: {x: 0.5, y: 1, z: 0.5}
   m_Children: []
   m_Father: {fileID: 920693195}
@@ -733,9 +735,9 @@ Light:
   m_Type: 0
   m_Shape: 0
   m_Color: {r: 0.9372549, g: 0.88235295, b: 0.40392157, a: 1}
-  m_Intensity: 1
-  m_Range: 3.9480236
-  m_SpotAngle: 149.67325
+  m_Intensity: 2
+  m_Range: 9.132626
+  m_SpotAngle: 144.71262
   m_InnerSpotAngle: 0
   m_CookieSize: 10
   m_Shadows:
@@ -775,7 +777,7 @@ Light:
   m_Lightmapping: 1
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
-  m_BounceIntensity: 1
+  m_BounceIntensity: 2
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
   m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
@@ -827,7 +829,7 @@ Light:
   m_Shape: 0
   m_Color: {r: 0.9339623, g: 0.88206095, b: 0.4000178, a: 1}
   m_Intensity: 0.03
-  m_Range: 0.5
+  m_Range: 0.7
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
