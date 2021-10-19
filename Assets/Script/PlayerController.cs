@@ -12,7 +12,10 @@ public class PlayerController : MonoBehaviour
 
     private NavMeshAgent myNavMeshAgent;
     public GameObject player;
+    [SerializeField]
     float m_Speed;
+    [SerializeField]
+    float m_RotationSpeed;
 
     // Start is called before the first frame update
     void Start()
@@ -20,6 +23,7 @@ public class PlayerController : MonoBehaviour
         player = GameObject.Find("Player");
         myNavMeshAgent = player.GetComponent<NavMeshAgent>();
         m_Speed = 0.01f;
+        m_RotationSpeed = 1.0f;
     }
 
     // Update is called once per frame
@@ -31,11 +35,11 @@ public class PlayerController : MonoBehaviour
         }
         if (Input.GetKey(KeyCode.RightArrow))
         {
-            player.transform.Rotate(new Vector3(0.0f, 1.5f, 0.0f));
+            player.transform.Rotate(new Vector3(0.0f, m_RotationSpeed, 0.0f));
         }
         if (Input.GetKey(KeyCode.LeftArrow))
         {
-            player.transform.Rotate(new Vector3(0.0f, -1.5f, 0.0f));
+            player.transform.Rotate(new Vector3(0.0f, -m_RotationSpeed, 0.0f));
         }
         if (Input.GetKey(KeyCode.DownArrow))
         {

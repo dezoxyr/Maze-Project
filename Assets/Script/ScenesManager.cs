@@ -2,11 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
-using UnityEditor.SceneManagement;
+
 using UnityEngine.SceneManagement;
 using System.Linq;
 
-public class ScenesManager : EditorWindow
+
+#if UNITY_EDITOR
+public class ScenesManager : UnityEditor.EditorWindow
 {
 
     private List<SceneData> listScene = new List<SceneData>();
@@ -49,19 +51,19 @@ public class ScenesManager : EditorWindow
             if (scene.isActive = GUILayout.Toggle(scene.isActive, scene.name)) {
                 if (scene.isInNextFrame)
                 {
-                    EditorSceneManager.OpenScene(scene.chemin, OpenSceneMode.Additive);
+                    UnityEditor.SceneManagement.EditorSceneManager.OpenScene(scene.chemin, UnityEditor.SceneManagement.OpenSceneMode.Additive);
                     scene.isInNextFrame = false;
                 }
                 
             } else
             {
-                if (EditorSceneManager.sceneCount == 1 && !scene.isInNextFrame)
+                if (UnityEditor.SceneManagement.EditorSceneManager.sceneCount == 1 && !scene.isInNextFrame)
                 {
                     GetWindow<ScenesManager>().ShowNotification(new GUIContent("STOP ERROR"));
                     scene.isActive = true;
                 } else
                 {
-                    EditorSceneManager.CloseScene(EditorSceneManager.GetSceneByName(scene.name), true);
+                    UnityEditor.SceneManagement.EditorSceneManager.CloseScene(UnityEditor.SceneManagement.EditorSceneManager.GetSceneByName(scene.name), true);
                     scene.isInNextFrame = true;
                 }
             }
@@ -78,9 +80,9 @@ public class ScenesManager : EditorWindow
             listScene.Add(new SceneData(System.IO.Path.GetFileNameWithoutExtension(scene.path), scene.path, false, true));
         }
         int index;
-        for (int i =0; i< EditorSceneManager.sceneCount; i++)
+        for (int i =0; i< UnityEditor.SceneManagement.EditorSceneManager.sceneCount; i++)
         {
-            index = EditorSceneManager.GetSceneAt(i).buildIndex;
+            index = UnityEditor.SceneManagement.EditorSceneManager.GetSceneAt(i).buildIndex;
             listScene[index].isActive = true;
             listScene[index].isInNextFrame = false;
         }
@@ -127,3 +129,4 @@ public class SceneData
         isInNextFrame = isIn;
     }
 }
+#endif

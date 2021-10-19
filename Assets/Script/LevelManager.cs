@@ -79,7 +79,7 @@ public class LevelManager : MonoBehaviour
         GameObject spawn = Instantiate(ground, new Vector3(0, 0, 0), Quaternion.identity, parent.transform);
         spawn.name = "spawn";
         genWall(~maze[0,0], 0, 0);
-        player.transform.localPosition = new Vector3(spawn.transform.localPosition.x, spawn.transform.localPosition.y+0.5f, spawn.transform.localPosition.z);
+        player.transform.localPosition = new Vector3(spawn.transform.localPosition.x, spawn.transform.localPosition.y, spawn.transform.localPosition.z);
         for (int i = 0; i < width; i++)
         {
             for(int j = 0; j < height; j++)
