@@ -11,6 +11,7 @@ public class LevelManager : MonoBehaviour
     public GameObject wall;
     public GameObject parent;
     public GameObject player;
+    public GameObject end;
 
     private NavMeshAgent myNavMeshAgent;
     private const int width = 10;
@@ -151,6 +152,7 @@ public class LevelManager : MonoBehaviour
         //Debug.Log(pos+" "+distance);
         myNavMeshAgent.Warp(new Vector3(0f, 0f, 0f));
         //myNavMeshAgent.SetDestination(pos);
+        end.transform.localPosition = new Vector3(pos.x, 0.5f, pos.z);
 
 #if UNITY_EDITOR
         Debug.Log("Creating maze file...");
@@ -170,6 +172,6 @@ public class LevelManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 }

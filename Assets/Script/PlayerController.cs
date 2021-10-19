@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
 using UnityEngine.AI;
+using UnityEditor.SceneManagement;
+using UnityEngine.SceneManagement;
 
 
 public class PlayerController : MonoBehaviour
@@ -38,6 +40,15 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKey(KeyCode.DownArrow))
         {
             myNavMeshAgent.velocity -= player.transform.forward * m_Speed;
+        }
+    }
+
+    void OnTriggerEnter(Collider end)
+    {
+        if (end.gameObject.name == "End")
+        {
+            //SceneManager.LoadScene("SampleScene");
+            Debug.Log("GG BG !!");
         }
     }
 }
