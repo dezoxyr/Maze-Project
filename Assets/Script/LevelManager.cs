@@ -110,7 +110,7 @@ public class LevelManager : MonoBehaviour
     }
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         createMaze();
         
@@ -149,7 +149,8 @@ public class LevelManager : MonoBehaviour
             }
         }
         //Debug.Log(pos+" "+distance);
-        myNavMeshAgent.SetDestination(pos);
+        myNavMeshAgent.Warp(new Vector3(0f, 0f, 0f));
+        //myNavMeshAgent.SetDestination(pos);
 
 #if UNITY_EDITOR
         Debug.Log("Creating maze file...");
