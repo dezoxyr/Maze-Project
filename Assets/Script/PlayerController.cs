@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
 using UnityEngine.AI;
-using UnityEditor.SceneManagement;
 using UnityEngine.SceneManagement;
 
 
@@ -11,11 +10,15 @@ public class PlayerController : MonoBehaviour
 {
 
     private NavMeshAgent myNavMeshAgent;
+    [SerializeField]
+    private AudioSource audioSource;
+    [SerializeField]
+    private AudioClip audioClip;
     public GameObject player;
     [SerializeField]
-    float m_Speed;
+    private float m_Speed;
     [SerializeField]
-    float m_RotationSpeed;
+    private float m_RotationSpeed;
 
     // Start is called before the first frame update
     void Start()
@@ -53,6 +56,12 @@ public class PlayerController : MonoBehaviour
         {
             //SceneManager.LoadScene("SampleScene");
             Debug.Log("GG BG !!");
+        }
+
+        if (end.gameObject.name == "Monster")
+        {
+            Debug.Log("Noob !");
+            audioSource.PlayOneShot(audioClip,1f);
         }
     }
 }

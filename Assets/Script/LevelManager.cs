@@ -12,6 +12,7 @@ public class LevelManager : MonoBehaviour
     public GameObject parent;
     public GameObject player;
     public GameObject end;
+    public GameObject monster;
 
     private NavMeshAgent myNavMeshAgent;
     private const int width = 10;
@@ -126,7 +127,7 @@ public class LevelManager : MonoBehaviour
         s.BuildNavMesh();
         myNavMeshAgent = player.AddComponent<NavMeshAgent>();
         myNavMeshAgent.radius = 0.15f;
-        myNavMeshAgent.speed = 2.5f;
+        myNavMeshAgent.speed = 1.5f;
         //myNavMeshAgent.angularSpeed = 60;
         for (int i = 0; i < width; i++)
         {
@@ -153,6 +154,16 @@ public class LevelManager : MonoBehaviour
         myNavMeshAgent.Warp(new Vector3(0f, 0f, 0f));
         //myNavMeshAgent.SetDestination(pos);
         end.transform.localPosition = new Vector3(pos.x, 0.5f, pos.z);
+        if (maze[(int)pos.x,(int)pos.z]==1){
+            end.transform.localRotation = Quaternion.Euler(0f,180f,0f);
+        }else if (maze[(int)pos.x, (int)pos.z] == 2){
+            //Already good orientation
+        }else if (maze[(int)pos.x, (int)pos.z] == 4){
+            end.transform.localRotation = Quaternion.Euler(0f, -90f, 0f);
+        }else if (maze[(int)pos.x, (int)pos.z] == 8){
+            end.transform.localRotation = Quaternion.Euler(0f, 90f, 0f);
+        }
+        monster.transform.localPosition = new Vector3(pos.x-1, 0f, pos.z);
 
 #if UNITY_EDITOR
         Debug.Log("Creating maze file...");
