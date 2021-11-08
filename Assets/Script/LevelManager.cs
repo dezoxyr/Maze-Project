@@ -48,22 +48,22 @@ public class LevelManager : MonoBehaviour
     {
                 if ((x & 1) == 1)
                 {
-                    GameObject g = Instantiate(wall, new Vector3((float)(y - 0.45), 0.5f, z), Quaternion.Euler(0f, 90f, 0f), parent.transform);
+                    GameObject g = Instantiate(wall, new Vector3((float)(y - 0.45), 0.0f, z), Quaternion.Euler(0f, 90f, 0f), parent.transform);
                     g.name = y + "," + z+" cote : N";
                 }
                 if ((x & 2) == 2)
                 {
-                    GameObject g = Instantiate(wall, new Vector3((float)(y + 0.45), 0.5f, z), Quaternion.Euler(0f, 90f, 0f), parent.transform);
+                    GameObject g = Instantiate(wall, new Vector3((float)(y + 0.45), 0.0f, z), Quaternion.Euler(0f, 90f, 0f), parent.transform);
                     g.name = y + "," + z + "cote : S";
                 }
                 if ((x & 4) == 4)
                 {
-                    GameObject g = Instantiate(wall, new Vector3( y, 0.5f, (float)(z+0.45)), Quaternion.identity, parent.transform);
+                    GameObject g = Instantiate(wall, new Vector3( y, 0.0f, (float)(z+0.45)), Quaternion.identity, parent.transform);
                     g.name = y + "," + z + "cote : E";
                 }
                 if ((x & 8) == 8)
                 {
-                    GameObject g = Instantiate(wall, new Vector3(y, 0.5f, (float)(z - 0.45)), Quaternion.identity, parent.transform);
+                    GameObject g = Instantiate(wall, new Vector3(y, 0.0f, (float)(z - 0.45)), Quaternion.identity, parent.transform);
                     g.name = y + "," + z + "cote : W";
                 }
                 

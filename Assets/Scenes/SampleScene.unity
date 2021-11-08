@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.23462737, g: 0.04684957, b: 0.012355875, a: 1}
+  m_IndirectSpecularColor: {r: 0.234635, g: 0.046854064, b: 0.0123571195, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -607,7 +607,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ground: {fileID: 6010247141583112609, guid: 72dd1228fd107ce45a588125314ecf1e, type: 3}
-  wall: {fileID: 1092834158804955193, guid: ec4fcc837d1b96d4fa8536331ba51dcb, type: 3}
+  wall: {fileID: 1591265268}
   parent: {fileID: 1400037805}
   player: {fileID: 1493872842}
   end: {fileID: 1036822092}
@@ -1029,6 +1029,76 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!1001 &1591265267
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: b1bee111d92a5804b840246aff68d941, type: 3}
+      propertyPath: m_RootOrder
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: b1bee111d92a5804b840246aff68d941, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: b1bee111d92a5804b840246aff68d941, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: b1bee111d92a5804b840246aff68d941, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: b1bee111d92a5804b840246aff68d941, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: b1bee111d92a5804b840246aff68d941, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: b1bee111d92a5804b840246aff68d941, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: b1bee111d92a5804b840246aff68d941, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: b1bee111d92a5804b840246aff68d941, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: b1bee111d92a5804b840246aff68d941, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: b1bee111d92a5804b840246aff68d941, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: b1bee111d92a5804b840246aff68d941, type: 3}
+      propertyPath: m_Name
+      value: Wall+Skull_Maze_Project_v2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2857662543836938728, guid: b1bee111d92a5804b840246aff68d941, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 96864fd973cb2124e95d04fb39231011, type: 2}
+    - target: {fileID: 8424073627695423409, guid: b1bee111d92a5804b840246aff68d941, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: c817e103a11f3294eae6723194a07864, type: 2}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: b1bee111d92a5804b840246aff68d941, type: 3}
+--- !u!1 &1591265268 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: b1bee111d92a5804b840246aff68d941, type: 3}
+  m_PrefabInstance: {fileID: 1591265267}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1805346139
 GameObject:
   m_ObjectHideFlags: 0
