@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.SceneManagement;
 
 
 public class LevelManager : MonoBehaviour
@@ -13,6 +14,7 @@ public class LevelManager : MonoBehaviour
     public GameObject player;
     public GameObject end;
     public GameObject monster;
+    public GameObject pauseMenu;
 
     private NavMeshAgent myNavMeshAgent;
     private const int width = 10;
@@ -21,6 +23,7 @@ public class LevelManager : MonoBehaviour
     private Vector3 pos;
     private int[,] maze = new int[width,height];
     private int[,] deadEnd = new int[width, height];
+    private GameObject[] pauseObjects;
 
 
     /// <summary>
@@ -164,7 +167,7 @@ public class LevelManager : MonoBehaviour
             end.transform.localRotation = Quaternion.Euler(0f, 90f, 0f);
         }
         monster.transform.localPosition = new Vector3(pos.x-1, 0f, pos.z);
-
+        pauseObjects = GameObject.FindGameObjectsWithTag("ShowOnPause");
 #if UNITY_EDITOR
         Debug.Log("Creating maze file...");
         string texte = null;
@@ -183,6 +186,40 @@ public class LevelManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            if (!pauseMenu.activeSelf)
+            {
+                pauseMenu.SetActive(true);
+                foreach (GameObject g in pauseObjects)
+                {
+                    g.SetActive(false);
+                }
+            }
+            else{
+                pauseMenu.SetActive(false);
+                foreach (GameObject g in pauseObjects)
+                {
+                    g.SetActive(true);
+                }
+            }
+            
+        }
+        /*if (Input.GetKeyDown(KeyCode.Escape) && pauseMenu.activeSelf)
+        {
+            pauseMenu.SetActive(false);
+        }*/
     }
+
+    public void Reload()
+    {
+        Debug.Log("reloading");
+        SceneManager.LoadScene("SampleScene");
+    }
+    public void QuitButton()
+    {
+        // Quit Game
+        SceneManager.LoadScene("MenuScene");
+    }
+
 }

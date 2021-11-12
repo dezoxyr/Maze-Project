@@ -5,11 +5,12 @@ using UnityEngine;
 public class SC_PauseMenu : MonoBehaviour
 {
 	GameObject[] pauseObjects;
+	public GameObject pauseMenu;
 
 	// Use this for initialization
 	void Start()
 	{
-		Time.timeScale = 1;
+		Time.timeScale = 0;
 		pauseObjects = GameObject.FindGameObjectsWithTag("ShowOnPause");
 		hidePaused(); 
 	}
@@ -23,11 +24,13 @@ public class SC_PauseMenu : MonoBehaviour
 		{
 			if (Time.timeScale == 1)
 			{
+				pauseMenu.SetActive(false);
 				Time.timeScale = 0;
 				showPaused();
 			}
 			else if (Time.timeScale == 0)
 			{
+				
 				Debug.Log("high");
 				Time.timeScale = 1;
 				hidePaused();
@@ -79,5 +82,11 @@ public class SC_PauseMenu : MonoBehaviour
 	public void LoadLevel(string level)
 	{
 		Application.LoadLevel(level);
+	}
+
+	public void QuitButton()
+	{
+		// Quit Game
+		Application.Quit();
 	}
 }

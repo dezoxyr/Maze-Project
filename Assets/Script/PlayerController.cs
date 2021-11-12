@@ -56,12 +56,14 @@ public class PlayerController : MonoBehaviour
         {
             //SceneManager.LoadScene("SampleScene");
             Debug.Log("GG BG !!");
+            SceneManager.LoadScene("MenuScene");
         }
 
         if (end.gameObject.name == "Monster")
         {
             Debug.Log("Noob !");
             audioSource.PlayOneShot(audioClip,1f);
+            SceneManager.LoadScene("MenuScene");
         }
     }
 }

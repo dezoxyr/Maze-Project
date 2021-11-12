@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class SC_MainMenu : MonoBehaviour
 {
@@ -17,13 +18,13 @@ public class SC_MainMenu : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            Application.LoadLevel("MenuPause");
+            SceneManager.LoadScene("MenuPause");
         }
     }
     public void PlayNowButton()
     {
         // Play Now Button has been pressed, here you can initialize your game (For example Load a Scene called GameLevel etc.)
-        UnityEngine.SceneManagement.SceneManager.LoadScene("GameLevel");
+        UnityEngine.SceneManagement.SceneManager.LoadScene("SampleScene");
     }
 
     public void CreditsButton()
@@ -42,7 +43,7 @@ public class SC_MainMenu : MonoBehaviour
 
     public void LoadLevel(string level)
     {
-        Application.LoadLevel(level);
+        SceneManager.LoadScene(level);
     }
 
     public void QuitButton()
