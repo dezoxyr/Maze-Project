@@ -7,6 +7,7 @@ public class SC_MainMenu : MonoBehaviour
 {
     public GameObject MainMenu;
     public GameObject CreditsMenu;
+    public static int level = 1;
 
     // Start is called before the first frame update
     void Start()
@@ -21,8 +22,9 @@ public class SC_MainMenu : MonoBehaviour
             SceneManager.LoadScene("MenuPause");
         }
     }
-    public void PlayNowButton()
+    public void PlayNowButton(int difficulty)
     {
+        level = difficulty;
         // Play Now Button has been pressed, here you can initialize your game (For example Load a Scene called GameLevel etc.)
         UnityEngine.SceneManagement.SceneManager.LoadScene("SampleScene");
     }

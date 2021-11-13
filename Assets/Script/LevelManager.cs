@@ -17,8 +17,8 @@ public class LevelManager : MonoBehaviour
     public GameObject pauseMenu;
 
     private NavMeshAgent myNavMeshAgent;
-    private const int width = 10;
-    private const int height = 10;
+    private static int width = SC_MainMenu.level;
+    private static int height = SC_MainMenu.level;
     private float distance = 0.0f;
     private Vector3 pos;
     private int[,] maze = new int[width,height];
@@ -100,6 +100,10 @@ public class LevelManager : MonoBehaviour
         return true;
     }
 
+    /// <summary>
+    /// Brief to find the dead end of the maze.
+    /// It fills an array containing a 1 if the cell is a dead end.
+    /// </summary>
     private void findDeadEnd()
     {
         for(int i = 0; i < width; i++)
@@ -118,13 +122,12 @@ public class LevelManager : MonoBehaviour
     void Awake()
     {
         createMaze();
-        
+        Debug.Log(SC_MainMenu.level);
         MazeGenerator m = new MazeGenerator(width,height);
         System.Random rnd = new System.Random();
         maze = m.generate(0, 0, maze,rnd);
         findDeadEnd();
         genMaze(maze);
-
         //NavMeshSurface s = parent.AddComponent<NavMeshSurface>();
         NavMeshSurface s = parent.GetComponent<NavMeshSurface>();
         s.BuildNavMesh();
@@ -166,14 +169,18 @@ public class LevelManager : MonoBehaviour
         }else if (maze[(int)pos.x, (int)pos.z] == 8){
             end.transform.localRotation = Quaternion.Euler(0f, 90f, 0f);
         }
-        monster.transform.localPosition = new Vector3(pos.x-1, 0f, pos.z);
+        if (SC_MainMenu.level != 5)
+        {
+            monster.transform.localPosition = new Vector3(pos.x - 1, 0f, pos.z);
+        }
+        
         pauseObjects = GameObject.FindGameObjectsWithTag("ShowOnPause");
 #if UNITY_EDITOR
         Debug.Log("Creating maze file...");
         string texte = null;
-        for(int i = 0; i < 10; i++)
+        for(int i = 0; i < height; i++)
         {
-            for(int j = 0; j < 10; j++)
+            for(int j = 0; j < width; j++)
             {
                 texte = texte + maze[i, j]+"/"+deadEnd[i,j]+" ";
             }
@@ -211,11 +218,18 @@ public class LevelManager : MonoBehaviour
         }*/
     }
 
+    /// <summary>
+    /// Brief to reload the scene
+    /// </summary>
     public void Reload()
     {
         Debug.Log("reloading");
         SceneManager.LoadScene("SampleScene");
     }
+
+    /// <summary>
+    /// Biref to quit to the main menu
+    /// </summary>
     public void QuitButton()
     {
         // Quit Game
