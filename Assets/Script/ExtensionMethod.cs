@@ -4,6 +4,11 @@ using UnityEngine;
 using UnityEngine.AI;
 
 public static class ExtensionMethod{
+    /// <summary>
+    /// To compute the remaining distance from the object to the destination
+    /// </summary>
+    /// <param name="navMeshAgent"></param>
+    /// <returns></returns>
     public static float GetPathRemainingDistance(this NavMeshAgent navMeshAgent)
     {
         if (navMeshAgent.path.corners.Length == 0)

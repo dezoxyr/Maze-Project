@@ -5,8 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class SC_MainMenu : MonoBehaviour
 {
-    public GameObject MainMenu;
-    public GameObject CreditsMenu;
+    public GameObject m_MainMenu;
+    public GameObject m_CreditsMenu;
     public static int level = 1;
 
     // Start is called before the first frame update
@@ -22,6 +22,12 @@ public class SC_MainMenu : MonoBehaviour
             SceneManager.LoadScene("MenuPause");
         }
     }
+
+    /// <summary>
+    /// Brief called when the user click on a difficulty setting.
+    /// 
+    /// </summary>
+    /// <param name="difficulty">The number of cells in the maze (if 5 then no monster will spawn) -> easy difficulty</param>
     public void PlayNowButton(int difficulty)
     {
         level = difficulty;
@@ -29,25 +35,38 @@ public class SC_MainMenu : MonoBehaviour
         UnityEngine.SceneManagement.SceneManager.LoadScene("SampleScene");
     }
 
+    /// <summary>
+    /// Brief called when clicking on the credit button
+    /// </summary>
     public void CreditsButton()
     {
         // Show Credits Menu
-        MainMenu.SetActive(false);
-        CreditsMenu.SetActive(true);
+        m_MainMenu.SetActive(false);
+        m_CreditsMenu.SetActive(true);
     }
 
+    /// <summary>
+    /// Brief called when clicking on the main menu button
+    /// </summary>
     public void MainMenuButton()
     {
         // Show Main Menu
-        MainMenu.SetActive(true);
-        CreditsMenu.SetActive(false);
+        m_MainMenu.SetActive(true);
+        m_CreditsMenu.SetActive(false);
     }
 
+    /// <summary>
+    /// Brief to load a scene
+    /// </summary>
+    /// <param name="level">The name of the scene</param>
     public void LoadLevel(string level)
     {
         SceneManager.LoadScene(level);
     }
 
+    /// <summary>
+    /// Brief called when clicking on exit
+    /// </summary>
     public void QuitButton()
     {
         // Quit Game

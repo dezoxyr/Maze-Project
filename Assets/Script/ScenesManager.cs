@@ -11,8 +11,8 @@ using System.Linq;
 public class ScenesManager : UnityEditor.EditorWindow
 {
 
-    private List<SceneData> listScene = new List<SceneData>();
-    Vector2 scrollPosition;
+    private List<SceneData> m_listScene = new List<SceneData>();
+    Vector2 m_scrollPosition;
     bool toggleScene = false;
 
     [MenuItem("Tools/Scenes manager")]
@@ -45,8 +45,8 @@ public class ScenesManager : UnityEditor.EditorWindow
         GUILayout.EndVertical();
 
         GUILayout.BeginVertical();
-        GUILayout.BeginScrollView(scrollPosition, GUILayout.Width(100), GUILayout.Height(100));
-        foreach(SceneData scene in listScene)
+        GUILayout.BeginScrollView(m_scrollPosition, GUILayout.Width(100), GUILayout.Height(100));
+        foreach(SceneData scene in m_listScene)
         {
             if (scene.isActive = GUILayout.Toggle(scene.isActive, scene.name)) {
                 if (scene.isInNextFrame)
@@ -74,17 +74,17 @@ public class ScenesManager : UnityEditor.EditorWindow
 
     private void RefreshContent()
     {
-        listScene.Clear();
+        m_listScene.Clear();
         foreach (EditorBuildSettingsScene scene in EditorBuildSettings.scenes)
         {
-            listScene.Add(new SceneData(System.IO.Path.GetFileNameWithoutExtension(scene.path), scene.path, false, true));
+            m_listScene.Add(new SceneData(System.IO.Path.GetFileNameWithoutExtension(scene.path), scene.path, false, true));
         }
         int index;
         for (int i =0; i< UnityEditor.SceneManagement.EditorSceneManager.sceneCount; i++)
         {
             index = UnityEditor.SceneManagement.EditorSceneManager.GetSceneAt(i).buildIndex;
-            listScene[index].isActive = true;
-            listScene[index].isInNextFrame = false;
+            m_listScene[index].isActive = true;
+            m_listScene[index].isInNextFrame = false;
         }
     }
 

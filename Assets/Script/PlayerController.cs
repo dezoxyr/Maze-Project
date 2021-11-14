@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour
 {
 
     private NavMeshAgent m_myNavMeshAgent;
+    private GameObject[] m_pauseObjects;
     [SerializeField]
     private AudioSource m_audioSource;
     [SerializeField]
@@ -20,6 +21,8 @@ public class PlayerController : MonoBehaviour
     private float m_RotationSpeed;
 
     public GameObject p_player;
+    public GameObject p_looseMenu;
+    public GameObject p_winMenu;
 
     // Start is called before the first frame update
     void Start()
@@ -28,6 +31,7 @@ public class PlayerController : MonoBehaviour
         m_myNavMeshAgent = p_player.GetComponent<NavMeshAgent>();
         m_Speed = 0.01f;
         m_RotationSpeed = 1.0f;
+        m_pauseObjects = GameObject.FindGameObjectsWithTag("ShowOnPause");
     }
 
     // Update is called once per frame
@@ -60,16 +64,31 @@ public class PlayerController : MonoBehaviour
     {
         if (end.gameObject.name == "End")
         {
-            //SceneManager.LoadScene("SampleScene");
             Debug.Log("GG BG !!");
-            SceneManager.LoadScene("MenuScene");
+            foreach (GameObject g in m_pauseObjects)
+            {
+                g.SetActive(false);
+            }
+            p_winMenu.SetActive(true);
+            //SceneManager.LoadScene("MenuScene");
         }
 
         if (end.gameObject.name == "Monster")
         {
-            Debug.Log("Noob !");
-            m_audioSource.PlayOneShot(m_audioClip,1f);
-            SceneManager.LoadScene("MenuScene");
+            m_audioSource.PlayOneShot(m_audioClip, 1f);
+            StartCoroutine(playerLost());
         }
+    }
+
+    private IEnumerator playerLost()
+    {
+        yield return new WaitForSeconds(1);
+        Debug.Log("Noob !");
+        foreach (GameObject g in m_pauseObjects)
+        {
+            g.SetActive(false);
+        }
+        p_looseMenu.SetActive(true);
+        //SceneManager.LoadScene("MenuScene");
     }
 }
