@@ -6,23 +6,23 @@ using UnityEngine.AI;
 public class MonsterBehaviour : MonoBehaviour
 {
     [SerializeField]
-    private NavMeshSurface navmeshsurface;
-    private NavMeshAgent myNavMeshAgent;
+    private NavMeshSurface m_navmeshsurface;
+    private NavMeshAgent m_myNavMeshAgent;
     [SerializeField]
-    private GameObject monster;
+    private GameObject m_monster;
     [SerializeField]
-    private int randomIA;
-    private System.Random rnd;
+    private int m_randomIA;
+    private System.Random m_rnd;
 
     // Start is called before the first frame update
     void Start()
     {
         if (SC_MainMenu.level != 5)
         {
-            myNavMeshAgent = monster.AddComponent<NavMeshAgent>();
-            myNavMeshAgent.radius = 0.15f;
-            myNavMeshAgent.speed = 2.0f;
-            rnd = new System.Random();
+            m_myNavMeshAgent = m_monster.AddComponent<NavMeshAgent>();
+            m_myNavMeshAgent.radius = 0.15f;
+            m_myNavMeshAgent.speed = 2.0f;
+            m_rnd = new System.Random();
         }
     }
 
@@ -31,11 +31,11 @@ public class MonsterBehaviour : MonoBehaviour
     {
         if (SC_MainMenu.level != 5)
         {
-            if (rnd.Next() % randomIA == 0)
+            if (m_rnd.Next() % m_randomIA == 0)
             {
-                float x = rnd.Next() % SC_MainMenu.level;
-                float y = rnd.Next() % SC_MainMenu.level;
-                myNavMeshAgent.SetDestination(new Vector3(x, 0f, y));
+                float x = m_rnd.Next() % SC_MainMenu.level;
+                float y = m_rnd.Next() % SC_MainMenu.level;
+                m_myNavMeshAgent.SetDestination(new Vector3(x, 0f, y));
             }
         }
         

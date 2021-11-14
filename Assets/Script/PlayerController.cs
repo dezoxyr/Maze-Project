@@ -9,22 +9,23 @@ using UnityEngine.SceneManagement;
 public class PlayerController : MonoBehaviour
 {
 
-    private NavMeshAgent myNavMeshAgent;
+    private NavMeshAgent m_myNavMeshAgent;
     [SerializeField]
-    private AudioSource audioSource;
+    private AudioSource m_audioSource;
     [SerializeField]
-    private AudioClip audioClip;
-    public GameObject player;
+    private AudioClip m_audioClip;
     [SerializeField]
     private float m_Speed;
     [SerializeField]
     private float m_RotationSpeed;
 
+    public GameObject p_player;
+
     // Start is called before the first frame update
     void Start()
     {
-        player = GameObject.Find("Player");
-        myNavMeshAgent = player.GetComponent<NavMeshAgent>();
+        p_player = GameObject.Find("Player");
+        m_myNavMeshAgent = p_player.GetComponent<NavMeshAgent>();
         m_Speed = 0.01f;
         m_RotationSpeed = 1.0f;
     }
@@ -34,22 +35,27 @@ public class PlayerController : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.UpArrow))
         {
-            myNavMeshAgent.velocity += player.transform.forward * m_Speed;
+            m_myNavMeshAgent.velocity += p_player.transform.forward * m_Speed;
         }
         if (Input.GetKey(KeyCode.RightArrow))
         {
-            player.transform.Rotate(new Vector3(0.0f, m_RotationSpeed, 0.0f));
+            p_player.transform.Rotate(new Vector3(0.0f, m_RotationSpeed, 0.0f));
         }
         if (Input.GetKey(KeyCode.LeftArrow))
         {
-            player.transform.Rotate(new Vector3(0.0f, -m_RotationSpeed, 0.0f));
+            p_player.transform.Rotate(new Vector3(0.0f, -m_RotationSpeed, 0.0f));
         }
         if (Input.GetKey(KeyCode.DownArrow))
         {
-            myNavMeshAgent.velocity -= player.transform.forward * m_Speed;
+            m_myNavMeshAgent.velocity -= p_player.transform.forward * m_Speed;
         }
     }
 
+    /// <summary>
+    /// Brief called on a collision with an object.
+    /// If the object is the monster then -> loose game else the object is the end -> win.
+    /// </summary>
+    /// <param name="end"></param>
     void OnTriggerEnter(Collider end)
     {
         if (end.gameObject.name == "End")
@@ -62,7 +68,7 @@ public class PlayerController : MonoBehaviour
         if (end.gameObject.name == "Monster")
         {
             Debug.Log("Noob !");
-            audioSource.PlayOneShot(audioClip,1f);
+            m_audioSource.PlayOneShot(m_audioClip,1f);
             SceneManager.LoadScene("MenuScene");
         }
     }

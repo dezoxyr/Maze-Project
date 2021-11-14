@@ -7,12 +7,12 @@ using UnityEngine;
 public class MazeGenerator
 {
 
-    private int width;
-    private int height;
+    private int m_width;
+    private int m_height;
 
-    private int[,] Dx = new int[2, 4] { { 1, 2, 4, 8 }, { 0, 0, 1, -1 } };
-    private int[,] Dy = new int[2, 4] { { 1, 2, 4, 8 }, { -1, 1, 0, 0 } };
-    private int[,] Op = new int[2, 4] { { 1, 2, 4, 8 }, { 2, 1, 8, 4 } };
+    private int[,] m_Dx = new int[2, 4] { { 1, 2, 4, 8 }, { 0, 0, 1, -1 } };
+    private int[,] m_Dy = new int[2, 4] { { 1, 2, 4, 8 }, { -1, 1, 0, 0 } };
+    private int[,] m_Op = new int[2, 4] { { 1, 2, 4, 8 }, { 2, 1, 8, 4 } };
 
     private enum Direction
     {
@@ -34,9 +34,9 @@ public class MazeGenerator
         {
             for (int i = 0; i < 4; i++)
             {
-                if (Dx[0, i] == x)
+                if (m_Dx[0, i] == x)
                 {
-                    nb = Dx[1, i];
+                    nb = m_Dx[1, i];
                 }
             }
         }
@@ -44,9 +44,9 @@ public class MazeGenerator
         {
             for (int i = 0; i < 4; i++)
             {
-                if (Dy[0, i] == x)
+                if (m_Dy[0, i] == x)
                 {
-                    nb = Dy[1, i];
+                    nb = m_Dy[1, i];
                 }
             }
         }
@@ -54,9 +54,9 @@ public class MazeGenerator
         {
             for (int i = 0; i < 4; i++)
             {
-                if (Op[0, i] == x)
+                if (m_Op[0, i] == x)
                 {
-                    nb = Op[1, i];
+                    nb = m_Op[1, i];
                 }
             }
         }
@@ -70,8 +70,8 @@ public class MazeGenerator
     /// <param name="h">Maze height, default 10</param>
     public MazeGenerator(int w = 10, int h = 10)
     {
-        this.width = w;
-        this.height = h;
+        this.m_width = w;
+        this.m_height = h;
     }
 
     /// <summary>
@@ -101,7 +101,7 @@ public class MazeGenerator
             int xi = x + dirConvert(value, 0);
             int yi = y + dirConvert(value, 1);
 
-            if (0 <= xi && xi < width && 0 <= yi && yi < height)
+            if (0 <= xi && xi < m_width && 0 <= yi && yi < m_height)
             {
                 if (maze[yi, xi] == 0)
                 {
@@ -119,19 +119,19 @@ public class MazeGenerator
     //getter & setter
     public int getWidth()
     {
-        return this.width;
+        return this.m_width;
     }
     public int getHeight()
     {
-        return this.height;
+        return this.m_height;
     }
     public void setWidth(int w)
     {
-        this.width = w;
+        this.m_width = w;
     }
     public void setHeight(int h)
     {
-        this.height = h;
+        this.m_height = h;
     }
 
 }

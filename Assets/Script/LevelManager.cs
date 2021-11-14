@@ -8,22 +8,22 @@ using UnityEngine.SceneManagement;
 
 public class LevelManager : MonoBehaviour
 {
-    public GameObject ground;
-    public GameObject wall;
-    public GameObject parent;
-    public GameObject player;
-    public GameObject end;
-    public GameObject monster;
-    public GameObject pauseMenu;
+    public GameObject p_ground;
+    public GameObject p_wall;
+    public GameObject p_parent;
+    public GameObject p_player;
+    public GameObject p_end;
+    public GameObject p_monster;
+    public GameObject p_pauseMenu;
 
-    private NavMeshAgent myNavMeshAgent;
-    private static int width = SC_MainMenu.level;
-    private static int height = SC_MainMenu.level;
-    private float distance = 0.0f;
-    private Vector3 pos;
-    private int[,] maze = new int[width,height];
-    private int[,] deadEnd = new int[width, height];
-    private GameObject[] pauseObjects;
+    private NavMeshAgent m_myNavMeshAgent;
+    private static int m_width = SC_MainMenu.level;
+    private static int m_height = SC_MainMenu.level;
+    private float m_distance = 0.0f;
+    private Vector3 m_pos;
+    private int[,] m_maze = new int[m_width,m_height];
+    private int[,] m_deadEnd = new int[m_width, m_height];
+    private GameObject[] m_pauseObjects;
 
 
     /// <summary>
@@ -31,12 +31,12 @@ public class LevelManager : MonoBehaviour
     /// </summary>
     private void createMaze()
     {
-        for (int i = 0; i < width; i++)
+        for (int i = 0; i < m_width; i++)
         {
-            for (int j = 0; j < height; j++)
+            for (int j = 0; j < m_height; j++)
             {
-                maze[i, j] = 0;
-                deadEnd[i, j] = 0;
+                m_maze[i, j] = 0;
+                m_deadEnd[i, j] = 0;
             }
         }
     }
@@ -51,22 +51,22 @@ public class LevelManager : MonoBehaviour
     {
                 if ((x & 1) == 1)
                 {
-                    GameObject g = Instantiate(wall, new Vector3((float)(y - 0.45), 0.0f, z), Quaternion.Euler(0f, 90f, 0f), parent.transform);
+                    GameObject g = Instantiate(p_wall, new Vector3((float)(y - 0.45), 0.0f, z), Quaternion.Euler(0f, 90f, 0f), p_parent.transform);
                     g.name = y + "," + z+" cote : N";
                 }
                 if ((x & 2) == 2)
                 {
-                    GameObject g = Instantiate(wall, new Vector3((float)(y + 0.45), 0.0f, z), Quaternion.Euler(0f, 90f, 0f), parent.transform);
+                    GameObject g = Instantiate(p_wall, new Vector3((float)(y + 0.45), 0.0f, z), Quaternion.Euler(0f, 90f, 0f), p_parent.transform);
                     g.name = y + "," + z + "cote : S";
                 }
                 if ((x & 4) == 4)
                 {
-                    GameObject g = Instantiate(wall, new Vector3( y, 0.0f, (float)(z+0.45)), Quaternion.identity, parent.transform);
+                    GameObject g = Instantiate(p_wall, new Vector3( y, 0.0f, (float)(z+0.45)), Quaternion.identity, p_parent.transform);
                     g.name = y + "," + z + "cote : E";
                 }
                 if ((x & 8) == 8)
                 {
-                    GameObject g = Instantiate(wall, new Vector3(y, 0.0f, (float)(z - 0.45)), Quaternion.identity, parent.transform);
+                    GameObject g = Instantiate(p_wall, new Vector3(y, 0.0f, (float)(z - 0.45)), Quaternion.identity, p_parent.transform);
                     g.name = y + "," + z + "cote : W";
                 }
                 
@@ -80,17 +80,17 @@ public class LevelManager : MonoBehaviour
     /// <returns>True if generation is ok</returns>
     private bool genMaze(int[,] maze)
     {
-        GameObject spawn = Instantiate(ground, new Vector3(0, 0, 0), Quaternion.identity, parent.transform);
+        GameObject spawn = Instantiate(p_ground, new Vector3(0, 0, 0), Quaternion.identity, p_parent.transform);
         spawn.name = "spawn";
         genWall(~maze[0,0], 0, 0);
-        player.transform.localPosition = new Vector3(spawn.transform.localPosition.x, spawn.transform.localPosition.y, spawn.transform.localPosition.z);
-        for (int i = 0; i < width; i++)
+        p_player.transform.localPosition = new Vector3(spawn.transform.localPosition.x, spawn.transform.localPosition.y, spawn.transform.localPosition.z);
+        for (int i = 0; i < m_width; i++)
         {
-            for(int j = 0; j < height; j++)
+            for(int j = 0; j < m_height; j++)
             {
                 if (!(i == 0 && j == 0))
                 {
-                    GameObject g = Instantiate(ground, new Vector3(i, 0, j), Quaternion.identity, parent.transform);
+                    GameObject g = Instantiate(p_ground, new Vector3(i, 0, j), Quaternion.identity, p_parent.transform);
                     //g.name = i + "," + j;
                     genWall(~maze[i, j], i, j);
 
@@ -106,13 +106,13 @@ public class LevelManager : MonoBehaviour
     /// </summary>
     private void findDeadEnd()
     {
-        for(int i = 0; i < width; i++)
+        for(int i = 0; i < m_width; i++)
         {
-            for(int j = 0; j < height; j++)
+            for(int j = 0; j < m_height; j++)
             {
-                if (maze[i,j]==1 || maze[i, j] == 2 || maze[i, j] == 4 || maze[i, j] == 8)
+                if (m_maze[i,j]==1 || m_maze[i, j] == 2 || m_maze[i, j] == 4 || m_maze[i, j] == 8)
                 {
-                    deadEnd[i, j] = 1;
+                    m_deadEnd[i, j] = 1;
                 }
             }
         }
@@ -122,67 +122,67 @@ public class LevelManager : MonoBehaviour
     void Awake()
     {
         createMaze();
-        Debug.Log(SC_MainMenu.level);
-        MazeGenerator m = new MazeGenerator(width,height);
+
+        MazeGenerator m = new MazeGenerator(m_width,m_height);
         System.Random rnd = new System.Random();
-        maze = m.generate(0, 0, maze,rnd);
+        m_maze = m.generate(0, 0, m_maze,rnd);
         findDeadEnd();
-        genMaze(maze);
-        //NavMeshSurface s = parent.AddComponent<NavMeshSurface>();
-        NavMeshSurface s = parent.GetComponent<NavMeshSurface>();
+        genMaze(m_maze);
+
+        NavMeshSurface s = p_parent.GetComponent<NavMeshSurface>();
         s.BuildNavMesh();
-        myNavMeshAgent = player.AddComponent<NavMeshAgent>();
-        myNavMeshAgent.radius = 0.15f;
-        myNavMeshAgent.speed = 1.5f;
+        m_myNavMeshAgent = p_player.AddComponent<NavMeshAgent>();
+        m_myNavMeshAgent.radius = 0.15f;
+        m_myNavMeshAgent.speed = 1.5f;
         //myNavMeshAgent.angularSpeed = 60;
-        for (int i = 0; i < width; i++)
+        for (int i = 0; i < m_width; i++)
         {
-            for (int j = 0; j < height; j++)
+            for (int j = 0; j < m_height; j++)
             {
-                if (deadEnd[i, j] == 1)
+                if (m_deadEnd[i, j] == 1)
                 {
-                    //Debug.Log("Impasse :"+i+","+j);
+
                     NavMeshPath path = new NavMeshPath();
-                    myNavMeshAgent.CalculatePath(new Vector3(i, 0.2f, j), path);
-                    myNavMeshAgent.SetPath(path);
+                    m_myNavMeshAgent.CalculatePath(new Vector3(i, 0.2f, j), path);
+                    m_myNavMeshAgent.SetPath(path);
                     //pos = new Vector3(i, 0.2f, j);
-                    float newDistance = ExtensionMethod.GetPathRemainingDistance(myNavMeshAgent);
+                    float newDistance = ExtensionMethod.GetPathRemainingDistance(m_myNavMeshAgent);
                     //Debug.Log("Distance :"+newDistance);
-                    if (newDistance > distance)
+                    if (newDistance > m_distance)
                     {
-                        distance = newDistance;
-                        pos = new Vector3(i, 0.2f, j);
+                        m_distance = newDistance;
+                        m_pos = new Vector3(i, 0.2f, j);
                     }
                 }
             }
         }
         //Debug.Log(pos+" "+distance);
-        myNavMeshAgent.Warp(new Vector3(0f, 0f, 0f));
+        m_myNavMeshAgent.Warp(new Vector3(0f, 0f, 0f));
         //myNavMeshAgent.SetDestination(pos);
-        end.transform.localPosition = new Vector3(pos.x, 0.5f, pos.z);
-        if (maze[(int)pos.x,(int)pos.z]==1){
-            end.transform.localRotation = Quaternion.Euler(0f,180f,0f);
-        }else if (maze[(int)pos.x, (int)pos.z] == 2){
+        p_end.transform.localPosition = new Vector3(m_pos.x, 0.5f, m_pos.z);
+        if (m_maze[(int)m_pos.x,(int)m_pos.z]==1){
+            p_end.transform.localRotation = Quaternion.Euler(0f,180f,0f);
+        }else if (m_maze[(int)m_pos.x, (int)m_pos.z] == 2){
             //Already good orientation
-        }else if (maze[(int)pos.x, (int)pos.z] == 4){
-            end.transform.localRotation = Quaternion.Euler(0f, -90f, 0f);
-        }else if (maze[(int)pos.x, (int)pos.z] == 8){
-            end.transform.localRotation = Quaternion.Euler(0f, 90f, 0f);
+        }else if (m_maze[(int)m_pos.x, (int)m_pos.z] == 4){
+            p_end.transform.localRotation = Quaternion.Euler(0f, -90f, 0f);
+        }else if (m_maze[(int)m_pos.x, (int)m_pos.z] == 8){
+            p_end.transform.localRotation = Quaternion.Euler(0f, 90f, 0f);
         }
         if (SC_MainMenu.level != 5)
         {
-            monster.transform.localPosition = new Vector3(pos.x - 1, 0f, pos.z);
+            p_monster.transform.localPosition = new Vector3(m_pos.x - 1, 0f, m_pos.z);
         }
         
-        pauseObjects = GameObject.FindGameObjectsWithTag("ShowOnPause");
+        m_pauseObjects = GameObject.FindGameObjectsWithTag("ShowOnPause");
 #if UNITY_EDITOR
         Debug.Log("Creating maze file...");
         string texte = null;
-        for(int i = 0; i < height; i++)
+        for(int i = 0; i < m_height; i++)
         {
-            for(int j = 0; j < width; j++)
+            for(int j = 0; j < m_width; j++)
             {
-                texte = texte + maze[i, j]+"/"+deadEnd[i,j]+" ";
+                texte = texte + m_maze[i, j]+"/"+m_deadEnd[i,j]+" ";
             }
             texte = texte + "\r";
         }
@@ -195,17 +195,17 @@ public class LevelManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if (!pauseMenu.activeSelf)
+            if (!p_pauseMenu.activeSelf)
             {
-                pauseMenu.SetActive(true);
-                foreach (GameObject g in pauseObjects)
+                p_pauseMenu.SetActive(true);
+                foreach (GameObject g in m_pauseObjects)
                 {
                     g.SetActive(false);
                 }
             }
             else{
-                pauseMenu.SetActive(false);
-                foreach (GameObject g in pauseObjects)
+                p_pauseMenu.SetActive(false);
+                foreach (GameObject g in m_pauseObjects)
                 {
                     g.SetActive(true);
                 }
