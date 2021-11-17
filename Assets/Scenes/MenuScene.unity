@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.4465782, g: 0.49641252, b: 0.5748167, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1064,8 +1064,9 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: "Font & menus : SharpCoderBlog.com @ 2019\nSkybox :  DinV Studio\nMusics
-    :  Luka Kotar \n3D Boat : ahmetsalih \nPotion :   \n\nMonster : Mahzell Team\nWater
-    & walls : Mahzell Team\nLantern : Mahzell Team\nEnd portal : Mahzell Team"
+    :  Luka Kotar \n3D Boat : ahmetsalih \nPotion :   angrylemon\n\nMonster : Mahzell
+    Team\nWater & walls : Mahzell Team\nLantern : Mahzell Team\nEnd portal : Mahzell
+    Team"
 --- !u!222 &744060564
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1479,7 +1480,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 1171, y: 571.7774}
+  m_SizeDelta: {x: 817, y: 398.9258}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1538536173
 MonoBehaviour:

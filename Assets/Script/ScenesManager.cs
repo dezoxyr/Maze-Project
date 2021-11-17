@@ -15,12 +15,14 @@ public class ScenesManager : UnityEditor.EditorWindow
     Vector2 m_scrollPosition;
     bool toggleScene = false;
 
+    // Add button tools and scenes manager
     [MenuItem("Tools/Scenes manager")]
     public static void ShowWindow()
     {
         GetWindow<ScenesManager>(false, "Scenes manager", true);
     }
 
+    // Manage scenes in build
     private void OnGUI()
     {
         GUILayout.BeginVertical();
@@ -72,6 +74,7 @@ public class ScenesManager : UnityEditor.EditorWindow
         GUILayout.EndVertical();
     }
 
+    //Refresh list of scenes build
     private void RefreshContent()
     {
         m_listScene.Clear();
@@ -88,6 +91,7 @@ public class ScenesManager : UnityEditor.EditorWindow
         }
     }
 
+    // Add scene to build
     [MenuItem("Assets/Scene/Add to build", false)]
     public static void AddToBuild()
     {
@@ -115,6 +119,7 @@ public class ScenesManager : UnityEditor.EditorWindow
     }
 
 }
+
 public class SceneData
 {
     public string name;
